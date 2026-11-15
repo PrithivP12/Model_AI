@@ -1,0 +1,1 @@
+{"name":"agrosim-handoff-client","private":true,"type":"module","scripts":{"typecheck":"tsc --noEmit","build":"tsc","example":"node dist/example.js"},"devDependencies":{"typescript":"5.9.3","@types/node":"22.19.0"}}

@@ -1,0 +1,194 @@
+{
+  "mode": "experimental",
+  "state_origin": "scenario_assumed",
+  "provenance": "Declared hypothetical functional ecosystem. No measured local biological stocks; initial C/N conservatively reclassified from humus. All new numerical ranges are exploratory Tier D.",
+  "enabled": {
+    "weed": true,
+    "herbivore": true,
+    "predator": true,
+    "detritivore": true,
+    "pathogen": true,
+    "microbes": true
+  },
+  "microbes": {
+    "parameters": {
+      "cue": 0.45,
+      "microbial_cn": 8.0,
+      "turnover_day20": 0.02,
+      "uptake_per_C_day20": 0.3,
+      "turnover_humus_fraction": 0.25,
+      "formulation": "throughput_limited",
+      "legacy_residue_control": false
+    },
+    "initial_humus_C_fraction": 0.01,
+    "provenance": "Existing V2 exploratory 1% humus partition, not observed local biomass"
+  },
+  "guilds": [
+    {
+      "identity": "competing_vegetation",
+      "role": "weed",
+      "hosts": [],
+      "resources": [
+        "solar_water_mineral_N"
+      ],
+      "parameters": {
+        "temp_min": 3.0,
+        "temp_opt": 25.0,
+        "temp_max": 42.0,
+        "mortality": 0.004,
+        "cn": 30.0,
+        "sla": 22.0,
+        "rue": 2.0,
+        "root_depth": 0.3,
+        "kc": 1.0,
+        "extinction": 0.6,
+        "water_per_C": 0.012,
+        "emergence_doy": 100.0,
+        "root_fraction": 0.2
+      },
+      "initial": {
+        "C": 2.0,
+        "N": 0.06666666666666667
+      },
+      "provenance": "Explicit Tier D exploratory scenario; functional guild is not a species or measured population",
+      "evidence_tier": "D"
+    },
+    {
+      "identity": "folivore",
+      "role": "herbivore",
+      "hosts": [
+        "corn",
+        "soybeans",
+        "spring_wheat"
+      ],
+      "resources": [
+        "green_leaf"
+      ],
+      "parameters": {
+        "temp_min": 3.0,
+        "temp_opt": 25.0,
+        "temp_max": 42.0,
+        "mortality": 0.004,
+        "cn": 8.0,
+        "max_feed": 0.5,
+        "half_food": 60.0,
+        "assimilation": 0.3,
+        "respiration": 0.5,
+        "stage_opt": 0.35,
+        "stage_width": 0.4
+      },
+      "initial": {
+        "C": 0.5,
+        "N": 0.0625
+      },
+      "provenance": "Explicit Tier D exploratory scenario; functional guild is not a species or measured population",
+      "evidence_tier": "D"
+    },
+    {
+      "identity": "natural_enemy",
+      "role": "predator",
+      "hosts": [],
+      "resources": [
+        "folivore"
+      ],
+      "parameters": {
+        "temp_min": 3.0,
+        "temp_opt": 25.0,
+        "temp_max": 42.0,
+        "mortality": 0.004,
+        "cn": 7.0,
+        "max_feed": 0.4,
+        "half_food": 0.5,
+        "assimilation": 0.35,
+        "respiration": 0.5
+      },
+      "initial": {
+        "C": 0.1,
+        "N": 0.014285714285714287
+      },
+      "provenance": "Explicit Tier D exploratory scenario; functional guild is not a species or measured population",
+      "evidence_tier": "D"
+    },
+    {
+      "identity": "soil_detritivore",
+      "role": "detritivore",
+      "hosts": [],
+      "resources": [
+        "surface_residue"
+      ],
+      "parameters": {
+        "temp_min": 3.0,
+        "temp_opt": 25.0,
+        "temp_max": 42.0,
+        "mortality": 0.004,
+        "cn": 12.0,
+        "max_feed": 0.4,
+        "half_food": 300.0,
+        "assimilation": 0.2,
+        "respiration": 0.3
+      },
+      "initial": {
+        "C": 8.0,
+        "N": 0.6666666666666666
+      },
+      "provenance": "Explicit Tier D exploratory scenario; functional guild is not a species or measured population",
+      "evidence_tier": "D"
+    },
+    {
+      "identity": "host_pressure",
+      "role": "pathogen",
+      "hosts": [
+        "corn",
+        "soybeans",
+        "spring_wheat"
+      ],
+      "resources": [
+        "green_leaf"
+      ],
+      "parameters": {
+        "temp_min": 3.0,
+        "temp_opt": 25.0,
+        "temp_max": 42.0,
+        "mortality": 0.004,
+        "infection": 0.05,
+        "necrosis": 0.01,
+        "half_lai": 1.0,
+        "stage_opt": 0.6,
+        "stage_width": 0.4
+      },
+      "initial": {
+        "pressure": 0.1
+      },
+      "provenance": "Explicit Tier D exploratory scenario; functional guild is not a species or measured population",
+      "evidence_tier": "D"
+    }
+  ],
+  "weed_removal": [
+    {
+      "date": "2028-05-15",
+      "fraction": 0.8,
+      "destination": "surface_residue"
+    }
+  ],
+  "design": {
+    "response_coordinates": [
+      "weed.initial",
+      "weed.emergence_doy",
+      "herbivore.initial",
+      "herbivore.max_feed",
+      "predator.initial",
+      "predator.half_food",
+      "detritivore.initial",
+      "pathogen.initial",
+      "microbes.cue",
+      "microbes.uptake_per_C_day20"
+    ],
+    "screen_coordinates": [
+      "weed.initial",
+      "herbivore.initial",
+      "predator.initial",
+      "microbes.uptake_per_C_day20"
+    ],
+    "stability_years": 10
+  }
+}

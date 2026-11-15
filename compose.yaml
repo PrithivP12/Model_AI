@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      AGROSIM_DATA_DIR: /data
+      AGROSIM_API_TOKEN: ${AGROSIM_API_TOKEN:?Set an API token with at least 32 characters}
+      AGROSIM_ALLOWED_HOSTS: localhost,127.0.0.1
+      AGROSIM_CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+    volumes:
+      - agrosim_runs:/data
+volumes:
+  agrosim_runs:

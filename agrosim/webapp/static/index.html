@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgroSim Global · The next season starts here</title>
+  <meta name="description" content="Explore how crop rotations reshape water, nutrients and soil across years. An evidence-aware NASA data demonstration.">
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to workspace</a>
+  <aside class="rail">
+    <a class="brand" href="#overview" aria-label="AgroSim home"><span class="brand-mark">a<span>↗</span></span><span>agrosim<span class="brand-sub">GLOBAL / RESEARCH EDITION</span></span></a>
+    <div class="rail-label">FIELD WORKSPACE</div>
+    <nav aria-label="Main navigation">
+      <a href="#overview" data-page="overview"><span>01</span> Field & environment</a>
+      <a href="#ecosystem" data-page="ecosystem"><span>02</span> Living system</a>
+      <a href="#compare" data-page="compare"><span>03</span> Rotation lab</a>
+      <a href="#evidence" data-page="evidence"><span>04</span> Evidence notebook</a>
+    </nav>
+    <div class="rail-bottom"><span class="tiny-dot"></span> LOCAL SCIENCE WORKSPACE<p>NASA environmental data.<br>Conserved ecosystem processes.<br>Three seasons of consequences.</p><small>Space Apps project · Independent project<br>No NASA endorsement implied</small></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span><span class="tiny-dot"></span> ILLINOIS DEMONSTRATION <span class="muted">/ 1 ha</span></span><div><button id="edit" class="text-button" disabled>Edit field assumptions ↗</button><button id="download" class="icon-button" disabled aria-label="Download computed simulation JSON">↓</button></div></header>
+    <div class="research-strip"><span class="tag">EXPERIMENTAL</span><span>Explore scenarios. Rotation rankings are not independently validated.</span><a href="#evidence">View the evidence ↗</a></div>
+    <div id="controls" class="scenario-bar" hidden></div>
+    <main id="main" tabindex="-1"><div class="loading" role="status"><div class="loading-mark">a↗</div><h1>Preparing your field workspace</h1><p>Loading real, conserved ecosystem simulations.<br>The first computation may take a little longer.</p></div></main>
+    <footer>AgroSim Global <span>Historical weather replay ≠ forecast · Local agricultural review required</span></footer>
+  </div>
+  <dialog id="field-dialog" aria-labelledby="dialog-title"><form id="field-form"><div class="dialog-top"><span class="eyebrow">DECLARED SCENARIO INPUTS</span><button type="button" id="close-dialog" class="icon-button" aria-label="Close field editor">×</button></div><h2 id="dialog-title">Set the starting conditions.</h2><p>Illinois only. Soil profile and calendar remain the documented demonstration assumptions. These entries are hypothetical management choices.</p>
+    <fieldset><legend>Current crop sequence</legend><div class="crop-inputs"><label>2027<select name="crop0"><option value="corn">Corn</option><option value="soybeans">Soybean</option></select></label><label>2028<select name="crop1"><option value="corn">Corn</option><option value="soybeans">Soybean</option></select></label><label>2029<select name="crop2"><option value="corn">Corn</option><option value="soybeans">Soybean</option></select></label></div></fieldset>
+    <label>Corn fertilizer <span>kg N/ha at planting · each corn season</span><input name="corn_n" type="number" min="0" max="150" step="1" required></label>
+    <label>Net irrigation <span>mm at planting · each season · supply efficiency 0.9</span><input name="irrigation_mm" type="number" min="0" max="22.5" step="0.5" required></label>
+    <label>Shoot residues retained <span>% after grain harvest · roots remain in soil</span><input name="residue_retained_percent" type="number" min="0" max="100" step="1" required></label>
+    <p class="form-note">Changes apply to all three strategies under identical weather. Prices, seed supply and the three-season resource budget are checked by the backend.</p><div id="form-error" class="error-text" role="alert"></div><button class="primary" id="run-button" type="submit">Run ecosystem comparison <span>↗</span></button>
+  </form></dialog>
+  <div id="notification" role="status" aria-live="polite"></div>
+</body>
+</html>

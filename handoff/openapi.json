@@ -1,0 +1,2948 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AgroSim Global",
+    "description": "Experimental scenario backend. No independent farmer-ready accuracy claim.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_api_v1_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/crops": {
+      "get": {
+        "summary": "Crops",
+        "operationId": "crops_api_v1_crops_get",
+        "parameters": [
+          {
+            "name": "lifecycle",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lifecycle"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "family",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Family"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/crops/{crop_id}": {
+      "get": {
+        "summary": "Crop",
+        "operationId": "crop_api_v1_crops__crop_id__get",
+        "parameters": [
+          {
+            "name": "crop_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Crop Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/farms/requirements": {
+      "post": {
+        "summary": "Requirements",
+        "operationId": "requirements_api_v1_farms_requirements_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequirementsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/validate": {
+      "post": {
+        "summary": "Validate",
+        "operationId": "validate_api_v1_simulations_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Validation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations": {
+      "post": {
+        "summary": "Submit",
+        "operationId": "submit_api_v1_simulations_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}": {
+      "get": {
+        "summary": "Status",
+        "operationId": "status_api_v1_simulations__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}/cancel": {
+      "post": {
+        "summary": "Cancel",
+        "operationId": "cancel_api_v1_simulations__run_id__cancel_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}/results": {
+      "get": {
+        "summary": "Result",
+        "operationId": "result_api_v1_simulations__run_id__results_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/SimulationResult"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ComparisonResult"
+                    }
+                  ],
+                  "title": "Response Result Api V1 Simulations  Run Id  Results Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comparisons": {
+      "post": {
+        "summary": "Comparison",
+        "operationId": "comparison_api_v1_comparisons_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}/timeseries": {
+      "get": {
+        "summary": "Timeseries",
+        "operationId": "timeseries_api_v1_simulations__run_id__timeseries_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "aggregation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "daily",
+                "monthly"
+              ],
+              "type": "string",
+              "default": "monthly",
+              "title": "Aggregation"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1831,
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 366,
+              "minimum": 1,
+              "default": 120,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "scenario",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 3,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}/artifacts": {
+      "get": {
+        "summary": "Artifacts",
+        "operationId": "artifacts_api_v1_simulations__run_id__artifacts_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "scenario",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 3,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scenario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metadata": {
+      "get": {
+        "summary": "Metadata",
+        "operationId": "metadata_api_v1_metadata_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Agriculture": {
+        "properties": {
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/ProductOutcome"
+            },
+            "type": "array",
+            "title": "Products"
+          },
+          "seasonal_products": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Seasonal Products"
+          },
+          "planting_dates": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Planting Dates"
+          },
+          "developmental_stages": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Developmental Stages"
+          },
+          "water": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Water"
+          },
+          "initial_soil": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Initial Soil"
+          },
+          "final_soil": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Final Soil"
+          },
+          "active_crop_at_end": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Crop At End"
+          },
+          "crop_survival_status": {
+            "type": "string",
+            "title": "Crop Survival Status"
+          },
+          "terminal_events": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Terminal Events"
+          },
+          "conservation": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Conservation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "products",
+          "seasonal_products",
+          "planting_dates",
+          "developmental_stages",
+          "water",
+          "initial_soil",
+          "final_soil",
+          "active_crop_at_end",
+          "crop_survival_status",
+          "terminal_events",
+          "conservation"
+        ],
+        "title": "Agriculture"
+      },
+      "ComparisonRequest": {
+        "properties": {
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/SimulationRequest"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 2,
+            "title": "Scenarios"
+          },
+          "ranking": {
+            "type": "string",
+            "enum": [
+              "none",
+              "conditional_financial"
+            ],
+            "title": "Ranking",
+            "default": "none"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenarios"
+        ],
+        "title": "ComparisonRequest"
+      },
+      "ComparisonResult": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/SimulationResult"
+            },
+            "type": "array",
+            "title": "Scenarios"
+          },
+          "comparison_basis": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Comparison Basis"
+          },
+          "conditional_ranking": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conditional Ranking"
+          },
+          "ranking_unavailable_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ranking Unavailable Reason"
+          },
+          "farmer_recommendation": {
+            "type": "null",
+            "title": "Farmer Recommendation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "scenarios",
+          "comparison_basis"
+        ],
+        "title": "ComparisonResult"
+      },
+      "CostInput": {
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Identifier"
+          },
+          "crop_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Crop Id"
+          },
+          "year": {
+            "type": "integer",
+            "maximum": 2200.0,
+            "minimum": 1900.0,
+            "title": "Year"
+          },
+          "category": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Category"
+          },
+          "covers": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]{0,63}$"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Covers"
+          },
+          "amount": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "per_ha",
+              "per_acre",
+              "total",
+              "per_kg_sold",
+              "per_m3_irrigation",
+              "per_kg_stored_day"
+            ],
+            "title": "Unit",
+            "default": "per_ha"
+          },
+          "accounting": {
+            "type": "string",
+            "enum": [
+              "variable",
+              "operating",
+              "overhead",
+              "ownership",
+              "marketing",
+              "capital_cash"
+            ],
+            "title": "Accounting",
+            "default": "variable"
+          },
+          "cash": {
+            "type": "string",
+            "enum": [
+              "cash",
+              "noncash",
+              "unknown"
+            ],
+            "title": "Cash",
+            "default": "cash"
+          },
+          "economic": {
+            "type": "boolean",
+            "title": "Economic",
+            "default": true
+          },
+          "expense_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Expense Date"
+          },
+          "payment_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Date"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "identifier",
+          "crop_id",
+          "year",
+          "category",
+          "covers",
+          "amount",
+          "expense_date",
+          "source"
+        ],
+        "title": "CostInput"
+      },
+      "CropOptions": {
+        "properties": {
+          "pollination": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pollination"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "flowering_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "day_neutral",
+                  "short_day"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flowering Type"
+          },
+          "short_day_chill_hours": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 3000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short Day Chill Hours"
+          },
+          "night_VPD_kPa": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 10.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Night Vpd Kpa"
+          },
+          "night_VPD_source": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Night Vpd Source"
+          },
+          "flower_induction_dates": {
+            "items": {
+              "type": "string",
+              "format": "date"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Flower Induction Dates"
+          },
+          "pruning": {
+            "items": {
+              "$ref": "#/components/schemas/Pruning"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Pruning"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "CropOptions"
+      },
+      "Farm": {
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "area": {
+            "type": "number",
+            "maximum": 10000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Area"
+          },
+          "area_unit": {
+            "type": "string",
+            "enum": [
+              "ha",
+              "acre"
+            ],
+            "title": "Area Unit",
+            "default": "ha"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "location",
+          "area"
+        ],
+        "title": "Farm"
+      },
+      "Finance": {
+        "properties": {
+          "decision_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Decision Date"
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "title": "Currency"
+          },
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/ProductSpec"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Products"
+          },
+          "prices": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInput"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Prices"
+          },
+          "costs": {
+            "items": {
+              "$ref": "#/components/schemas/CostInput"
+            },
+            "type": "array",
+            "maxItems": 300,
+            "title": "Costs"
+          },
+          "markets": {
+            "items": {
+              "$ref": "#/components/schemas/MarketInput"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Markets"
+          },
+          "sales": {
+            "items": {
+              "$ref": "#/components/schemas/Sale"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Sales"
+          },
+          "sale_timing": {
+            "type": "string",
+            "enum": [
+              "on_harvest",
+              "explicit"
+            ],
+            "title": "Sale Timing",
+            "default": "explicit"
+          },
+          "discount_rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Discount Rate"
+          },
+          "opening_cash": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Opening Cash"
+          },
+          "storage_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Storage Fraction",
+            "default": 0.0
+          },
+          "storage_capacity_kg": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Storage Capacity Kg",
+            "default": 0.0
+          },
+          "storage_daily_loss_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Storage Daily Loss Fraction",
+            "default": 0.0
+          },
+          "storage_source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Source"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "use_regional_benchmarks": {
+            "type": "boolean",
+            "title": "Use Regional Benchmarks",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decision_date",
+          "currency",
+          "products",
+          "discount_rate"
+        ],
+        "title": "Finance"
+      },
+      "FinancialOutcome": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "evaluated_conditional",
+              "financial_data_unavailable",
+              "partially_evaluated"
+            ],
+            "title": "Status"
+          },
+          "missing": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "revenue": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revenue"
+          },
+          "operating_cost": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operating Cost"
+          },
+          "full_economic_cost": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Economic Cost"
+          },
+          "net_return": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Net Return"
+          },
+          "net_cash_flow": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Net Cash Flow"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "missing"
+        ],
+        "title": "FinancialOutcome"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InitialPlant": {
+        "properties": {
+          "crop_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Crop Id"
+          },
+          "pools": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Pool"
+            },
+            "propertyNames": {
+              "enum": [
+                "green_leaf",
+                "senesced_leaf",
+                "structural_shoot",
+                "root",
+                "grain",
+                "labile_N"
+              ]
+            },
+            "type": "object",
+            "title": "Pools"
+          },
+          "age_days": {
+            "type": "number",
+            "maximum": 73000.0,
+            "minimum": 0.0,
+            "title": "Age Days"
+          },
+          "prior_season_shoot_dry": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Prior Season Shoot Dry",
+            "default": 0.0
+          },
+          "primary_stem_gdd": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Primary Stem Gdd",
+            "default": 0.0
+          },
+          "primary_stem_age_days": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Primary Stem Age Days",
+            "default": 0.0
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "crop_id",
+          "pools",
+          "age_days",
+          "source"
+        ],
+        "title": "InitialPlant"
+      },
+      "Issue": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "field",
+          "code",
+          "message"
+        ],
+        "title": "Issue"
+      },
+      "Job": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "simulation",
+              "comparison"
+            ],
+            "title": "Kind"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "failed",
+              "canceled"
+            ],
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Issue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "result_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "kind",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "Job"
+      },
+      "Living": {
+        "properties": {
+          "fixture_id": {
+            "type": "string",
+            "const": "hypothetical_functional_network_v1",
+            "title": "Fixture Id"
+          },
+          "assumptions": {
+            "type": "string",
+            "const": "hypothetical_assumptions_adopted",
+            "title": "Assumptions"
+          },
+          "enabled": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "propertyNames": {
+              "enum": [
+                "weed",
+                "herbivore",
+                "predator",
+                "microbes",
+                "detritivore",
+                "pathogen"
+              ]
+            },
+            "type": "object",
+            "title": "Enabled"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "fixture_id",
+          "assumptions"
+        ],
+        "title": "Living"
+      },
+      "Location": {
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Longitude"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          },
+          "county": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "County"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "title": "Location"
+      },
+      "Management": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "fertilizer_n_kg_ha": {
+            "type": "number",
+            "maximum": 2000.0,
+            "minimum": 0.0,
+            "title": "Fertilizer N Kg Ha",
+            "default": 0.0
+          },
+          "irrigation_mm": {
+            "type": "number",
+            "maximum": 2000.0,
+            "minimum": 0.0,
+            "title": "Irrigation Mm",
+            "default": 0.0
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "source"
+        ],
+        "title": "Management"
+      },
+      "MarketInput": {
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Identifier"
+          },
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Product Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "regional_proxy",
+              "unknown"
+            ],
+            "title": "Status"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "buyer_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Buyer Id"
+          },
+          "buyer_location": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Buyer Location"
+          },
+          "max_kg": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Kg"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "identifier",
+          "product_id",
+          "status",
+          "source"
+        ],
+        "title": "MarketInput"
+      },
+      "Paddy": {
+        "properties": {
+          "provenance": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Provenance"
+          },
+          "initial_pond_mm": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.0,
+            "title": "Initial Pond Mm"
+          },
+          "bund_height_mm": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.0,
+            "title": "Bund Height Mm"
+          },
+          "infiltration_limit_mm_day": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.0,
+            "title": "Infiltration Limit Mm Day"
+          },
+          "percolation_limit_mm_day": {
+            "type": "number",
+            "maximum": 500.0,
+            "minimum": 0.0,
+            "title": "Percolation Limit Mm Day"
+          },
+          "initial_ammonium_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Initial Ammonium Fraction"
+          },
+          "fertilizer_form": {
+            "type": "string",
+            "const": "ammonium_equivalent",
+            "title": "Fertilizer Form"
+          },
+          "nitrification_day": {
+            "type": "number",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Nitrification Day"
+          },
+          "denitrification_day": {
+            "type": "number",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Denitrification Day"
+          },
+          "redox_relaxation_day": {
+            "type": "number",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Redox Relaxation Day"
+          },
+          "NH4_mobility": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Nh4 Mobility",
+            "default": 0.1
+          },
+          "NO3_mobility": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "No3 Mobility",
+            "default": 1.0
+          },
+          "oxic_microsite_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Oxic Microsite Fraction",
+            "default": 0.05
+          },
+          "drain_dates": {
+            "items": {
+              "type": "string",
+              "format": "date"
+            },
+            "type": "array",
+            "maxItems": 1831,
+            "title": "Drain Dates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provenance",
+          "initial_pond_mm",
+          "bund_height_mm",
+          "infiltration_limit_mm_day",
+          "percolation_limit_mm_day",
+          "initial_ammonium_fraction",
+          "fertilizer_form",
+          "nitrification_day",
+          "denitrification_day",
+          "redox_relaxation_day"
+        ],
+        "title": "Paddy"
+      },
+      "Planting": {
+        "properties": {
+          "crop_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Crop Id"
+          },
+          "subtype": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,63}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtype"
+          },
+          "planted": {
+            "type": "string",
+            "format": "date",
+            "title": "Planted"
+          },
+          "harvest_deadline": {
+            "type": "string",
+            "format": "date",
+            "title": "Harvest Deadline"
+          },
+          "residue_removal_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Residue Removal Fraction",
+            "default": 0.0
+          },
+          "harvest_mode": {
+            "type": "string",
+            "enum": [
+              "grain",
+              "terminate_to_residue"
+            ],
+            "title": "Harvest Mode",
+            "default": "grain"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "crop_id",
+          "planted",
+          "harvest_deadline"
+        ],
+        "title": "Planting"
+      },
+      "Pollination": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "assumed_satisfied",
+              "observed_satisfied",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Source"
+          },
+          "sex": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "female",
+                  "male",
+                  "hermaphrodite",
+                  "compatible_cultivar"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sex"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "source"
+        ],
+        "title": "Pollination"
+      },
+      "Pool": {
+        "properties": {
+          "dry": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Dry"
+          },
+          "N": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "N"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dry",
+          "N"
+        ],
+        "title": "Pool"
+      },
+      "PriceInput": {
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Identifier"
+          },
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Product Id"
+          },
+          "amount": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "kg",
+              "tonne",
+              "lb",
+              "bu"
+            ],
+            "title": "Unit",
+            "default": "kg"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "identifier",
+          "product_id",
+          "amount",
+          "date",
+          "source"
+        ],
+        "title": "PriceInput"
+      },
+      "ProductOutcome": {
+        "properties": {
+          "crop_id": {
+            "type": "string",
+            "title": "Crop Id"
+          },
+          "product_id": {
+            "type": "string",
+            "title": "Product Id"
+          },
+          "harvested": {
+            "type": "string",
+            "title": "Harvested"
+          },
+          "product_dry_kg_ha": {
+            "type": "number",
+            "title": "Product Dry Kg Ha"
+          },
+          "total_product_dry_kg": {
+            "type": "number",
+            "title": "Total Product Dry Kg"
+          },
+          "product_N_kg_ha": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product N Kg Ha"
+          },
+          "saleable_mass_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Saleable Mass Kg"
+          },
+          "cohort_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cohort Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "crop_id",
+          "product_id",
+          "harvested",
+          "product_dry_kg_ha",
+          "total_product_dry_kg"
+        ],
+        "title": "ProductOutcome"
+      },
+      "ProductSpec": {
+        "properties": {
+          "crop_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Crop Id"
+          },
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Product Id"
+          },
+          "commodity_class": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Commodity Class"
+          },
+          "grade": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Grade"
+          },
+          "marketed_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Marketed Fraction"
+          },
+          "dry_matter_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Dry Matter Fraction"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "crop_id",
+          "product_id",
+          "commodity_class",
+          "grade",
+          "marketed_fraction",
+          "dry_matter_fraction",
+          "source"
+        ],
+        "title": "ProductSpec"
+      },
+      "Pruning": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Fraction"
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "fraction",
+          "source"
+        ],
+        "title": "Pruning"
+      },
+      "RequirementsRequest": {
+        "properties": {
+          "farm": {
+            "$ref": "#/components/schemas/Farm"
+          },
+          "crops": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]{0,63}$"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Crops"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "farm",
+          "crops"
+        ],
+        "title": "RequirementsRequest"
+      },
+      "Sale": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Product Id"
+          },
+          "price_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Price Id"
+          },
+          "market_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Market Id"
+          },
+          "fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Fraction",
+            "default": 1.0
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "product_id",
+          "price_id",
+          "market_id"
+        ],
+        "title": "Sale"
+      },
+      "SimulationRequest": {
+        "properties": {
+          "farm": {
+            "$ref": "#/components/schemas/Farm"
+          },
+          "scenario_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Scenario Id",
+            "default": "user_scenario"
+          },
+          "reference_scenario_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,63}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Scenario Id"
+          },
+          "adopt_reference_assumptions": {
+            "type": "boolean",
+            "title": "Adopt Reference Assumptions",
+            "default": false
+          },
+          "allow_experimental_profiles": {
+            "type": "boolean",
+            "title": "Allow Experimental Profiles",
+            "default": false
+          },
+          "start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start"
+          },
+          "end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End"
+          },
+          "plantings": {
+            "items": {
+              "$ref": "#/components/schemas/Planting"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Plantings"
+          },
+          "soil": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Soil"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Weather"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "management": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Management"
+                },
+                "type": "array",
+                "maxItems": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Management"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "experimental_living"
+            ],
+            "title": "Mode",
+            "default": "standard"
+          },
+          "living": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Living"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "initial_plant": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InitialPlant"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "crop_options": {
+            "patternProperties": {
+              "^[a-z][a-z0-9_]{0,63}$": {
+                "$ref": "#/components/schemas/CropOptions"
+              }
+            },
+            "type": "object",
+            "maxProperties": 20,
+            "title": "Crop Options"
+          },
+          "paddy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Paddy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "finance": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Finance"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "farm"
+        ],
+        "title": "SimulationRequest"
+      },
+      "SimulationResult": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "engine_version": {
+            "type": "string",
+            "title": "Engine Version"
+          },
+          "selected_engine": {
+            "type": "string",
+            "title": "Selected Engine"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "experimental_living"
+            ],
+            "title": "Mode"
+          },
+          "area_ha": {
+            "type": "number",
+            "title": "Area Ha"
+          },
+          "crops": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Crops"
+          },
+          "units": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Units"
+          },
+          "input_provenance": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Input Provenance"
+          },
+          "validation_status": {
+            "type": "string",
+            "title": "Validation Status"
+          },
+          "parameter_evidence": {
+            "type": "string",
+            "title": "Parameter Evidence"
+          },
+          "warnings": {
+            "items": {
+              "$ref": "#/components/schemas/Issue"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "agriculture": {
+            "$ref": "#/components/schemas/Agriculture"
+          },
+          "finance": {
+            "$ref": "#/components/schemas/FinancialOutcome"
+          },
+          "ecosystem": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ecosystem"
+          },
+          "timeseries_url": {
+            "type": "string",
+            "title": "Timeseries Url"
+          },
+          "artifacts": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Artifacts"
+          },
+          "numerical_sha256": {
+            "type": "string",
+            "title": "Numerical Sha256"
+          },
+          "independent_accuracy": {
+            "type": "null",
+            "title": "Independent Accuracy"
+          },
+          "farmer_recommendation": {
+            "type": "null",
+            "title": "Farmer Recommendation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "created_at",
+          "engine_version",
+          "selected_engine",
+          "scenario_id",
+          "mode",
+          "area_ha",
+          "crops",
+          "units",
+          "input_provenance",
+          "validation_status",
+          "parameter_evidence",
+          "warnings",
+          "agriculture",
+          "finance",
+          "timeseries_url",
+          "artifacts",
+          "numerical_sha256"
+        ],
+        "title": "SimulationResult"
+      },
+      "Soil": {
+        "properties": {
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/SoilLayer"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Layers"
+          },
+          "initial_state": {
+            "$ref": "#/components/schemas/SoilState"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "layers",
+          "initial_state",
+          "source"
+        ],
+        "title": "Soil"
+      },
+      "SoilLayer": {
+        "properties": {
+          "thickness_m": {
+            "type": "number",
+            "maximum": 5.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Thickness M"
+          },
+          "wilting_point": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Wilting Point"
+          },
+          "field_capacity": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Field Capacity"
+          },
+          "saturation": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Saturation"
+          },
+          "residual_water_content": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Residual Water Content",
+            "default": 0.02
+          },
+          "drainage_fraction_day": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Drainage Fraction Day",
+            "default": 0.5
+          },
+          "root_penetrability": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Root Penetrability",
+            "default": 1.0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "thickness_m",
+          "wilting_point",
+          "field_capacity",
+          "saturation"
+        ],
+        "title": "SoilLayer"
+      },
+      "SoilState": {
+        "properties": {
+          "water_mm": {
+            "items": {
+              "type": "number",
+              "maximum": 1000000000.0,
+              "minimum": 0.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Water Mm"
+          },
+          "mineral_n_kg_ha": {
+            "items": {
+              "type": "number",
+              "maximum": 1000000000.0,
+              "minimum": 0.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Mineral N Kg Ha"
+          },
+          "humus_c_kg_ha": {
+            "items": {
+              "type": "number",
+              "maximum": 1000000000.0,
+              "minimum": 0.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Humus C Kg Ha"
+          },
+          "humus_n_kg_ha": {
+            "items": {
+              "type": "number",
+              "maximum": 1000000000.0,
+              "minimum": 0.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Humus N Kg Ha"
+          },
+          "residue_c_kg_ha": {
+            "items": {
+              "type": "number",
+              "maximum": 1000000000.0,
+              "minimum": 0.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Residue C Kg Ha"
+          },
+          "residue_n_kg_ha": {
+            "items": {
+              "type": "number",
+              "maximum": 1000000000.0,
+              "minimum": 0.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Residue N Kg Ha"
+          },
+          "temperature_C": {
+            "items": {
+              "type": "number",
+              "maximum": 80.0,
+              "minimum": -80.0
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Temperature C"
+          },
+          "surface_residue_c_kg_ha": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Surface Residue C Kg Ha",
+            "default": 0.0
+          },
+          "surface_residue_n_kg_ha": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Surface Residue N Kg Ha",
+            "default": 0.0
+          },
+          "snow_mm": {
+            "type": "number",
+            "maximum": 1000000000.0,
+            "minimum": 0.0,
+            "title": "Snow Mm",
+            "default": 0.0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "water_mm",
+          "mineral_n_kg_ha",
+          "humus_c_kg_ha",
+          "humus_n_kg_ha",
+          "residue_c_kg_ha",
+          "residue_n_kg_ha",
+          "temperature_C"
+        ],
+        "title": "SoilState"
+      },
+      "Source": {
+        "properties": {
+          "origin": {
+            "type": "string",
+            "enum": [
+              "observed",
+              "user_supplied",
+              "source_reference",
+              "regional_proxy",
+              "hypothetical"
+            ],
+            "title": "Origin"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Description"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,63}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "origin",
+          "description"
+        ],
+        "title": "Source"
+      },
+      "Validation": {
+        "properties": {
+          "valid": {
+            "type": "boolean",
+            "title": "Valid"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/Issue"
+            },
+            "type": "array",
+            "title": "Errors"
+          },
+          "warnings": {
+            "items": {
+              "$ref": "#/components/schemas/Issue"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "engine": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine"
+          },
+          "required_inputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Required Inputs"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "valid",
+          "errors",
+          "warnings"
+        ],
+        "title": "Validation"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Weather": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "inline",
+              "controlled_reference",
+              "cached_nasa_power"
+            ],
+            "title": "Kind"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "days": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/WeatherDay"
+                },
+                "type": "array",
+                "maxItems": 1831
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Days"
+          },
+          "source_start_year": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 2100.0,
+                "minimum": 1981.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Start Year"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "source"
+        ],
+        "title": "Weather"
+      },
+      "WeatherDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "rain_mm": {
+            "type": "number",
+            "maximum": 2000.0,
+            "minimum": 0.0,
+            "title": "Rain Mm"
+          },
+          "tmin_C": {
+            "type": "number",
+            "maximum": 70.0,
+            "minimum": -100.0,
+            "title": "Tmin C"
+          },
+          "tmax_C": {
+            "type": "number",
+            "maximum": 70.0,
+            "minimum": -100.0,
+            "title": "Tmax C"
+          },
+          "solar_MJ_m2": {
+            "type": "number",
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Solar Mj M2"
+          },
+          "et0_mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 40.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Et0 Mm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "rain_mm",
+          "tmin_C",
+          "tmax_C",
+          "solar_MJ_m2"
+        ],
+        "title": "WeatherDay"
+      }
+    }
+  }
+}

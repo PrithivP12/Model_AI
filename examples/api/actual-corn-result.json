@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.0",
+  "run_id": "e8a8ffeed46f4e37866a5c4778a24426",
+  "created_at": "2026-11-15T23:31:22.456748+00:00",
+  "engine_version": "1.0.0",
+  "selected_engine": "preserved_reference",
+  "scenario_id": "offline_corn",
+  "mode": "standard",
+  "area_ha": 1.0,
+  "crops": [
+    {
+      "crop_id": "corn",
+      "profile_status": "reference",
+      "subtype": null
+    }
+  ],
+  "units": {
+    "product_dry": "kg dry/ha",
+    "soil_C": "kg C/ha",
+    "soil_N": "kg N/ha",
+    "total_product_dry": "kg dry",
+    "water": "mm"
+  },
+  "input_provenance": [
+    {
+      "description": "Repository-authored controlled reference scenario; soil, weather, age and management are illustrative, not field measurements.",
+      "origin": "hypothetical",
+      "source_id": null
+    },
+    {
+      "description": "Repository-authored controlled reference scenario; soil, weather, age and management are illustrative, not field measurements.",
+      "origin": "hypothetical",
+      "source_id": null
+    },
+    {
+      "description": "Repository-authored controlled reference scenario; soil, weather, age and management are illustrative, not field measurements.",
+      "origin": "hypothetical",
+      "source_id": null
+    }
+  ],
+  "validation_status": "experimental_scenario_not_independent_field_validation",
+  "parameter_evidence": "preserved_reference",
+  "warnings": [
+    {
+      "field": "science",
+      "code": "scientific_limitation",
+      "message": "Simulated scenarios are not independently validated farm predictions."
+    },
+    {
+      "field": "science",
+      "code": "scientific_limitation",
+      "message": "Crop-rotation effects underperformed a simple crop-history baseline; no optimal-rotation recommendation is provided."
+    },
+    {
+      "field": "science",
+      "code": "scientific_limitation",
+      "message": "85 crop profiles and new ecological parameters are largely transferred or hypothetical."
+    },
+    {
+      "field": "science",
+      "code": "scientific_limitation",
+      "message": "Living effects may be large and are not observed local pest or microbial outcomes."
+    },
+    {
+      "field": "science",
+      "code": "scientific_limitation",
+      "message": "No precise field accuracy, uncertainty interval, fresh-product conversion or profit is inferred from missing observations."
+    },
+    {
+      "field": "reference_scenario_id",
+      "code": "hypothetical_reference",
+      "message": "Reference inputs are controlled assumptions, not derived from the supplied location"
+    }
+  ],
+  "agriculture": {
+    "products": [
+      {
+        "crop_id": "corn",
+        "product_id": "corn_grain",
+        "harvested": "2020-06-23",
+        "product_dry_kg_ha": 4218.638930668569,
+        "total_product_dry_kg": 4218.638930668569,
+        "product_N_kg_ha": 59.060945029359964,
+        "saleable_mass_kg": null,
+        "cohort_id": null
+      }
+    ],
+    "seasonal_products": [
+      {
+        "crop_id": "corn",
+        "product_dry_kg_ha": 4218.638930668569,
+        "product_id": "corn_grain",
+        "year": 2020
+      }
+    ],
+    "planting_dates": [
+      {
+        "crop_id": "corn",
+        "harvest_deadline": "2021-03-26",
+        "harvest_mode": "grain",
+        "planted": "2020-04-01",
+        "residue_removal_fraction": 0.0,
+        "subtype": null
+      }
+    ],
+    "developmental_stages": [],
+    "water": {
+      "drainage_mm": 842.9472807253132,
+      "evaporation_mm": 773.0188574084927,
+      "irrigation_mm": 0.0,
+      "rain_mm": 1800.0,
+      "runoff_mm": 0.0,
+      "transpiration_mm": 183.10064803248994
+    },
+    "initial_soil": {
+      "humus_c_kg_ha": [
+        10000.0,
+        15000.0
+      ],
+      "humus_n_kg_ha": [
+        900.0,
+        1300.0
+      ],
+      "mineral_n_kg_ha": [
+        100.0,
+        60.0
+      ],
+      "residue_c_kg_ha": [
+        300.0,
+        200.0
+      ],
+      "residue_n_kg_ha": [
+        6.0,
+        4.0
+      ],
+      "snow_mm": 0.0,
+      "surface_residue_c_kg_ha": 300.0,
+      "surface_residue_n_kg_ha": 6.0,
+      "temperature_C": [
+        26.0,
+        26.0
+      ],
+      "water_mm": [
+        90.0,
+        210.0
+      ]
+    },
+    "final_soil": {
+      "humus_c_kg_ha": [
+        10537.65835872497,
+        15007.112925780108
+      ],
+      "humus_n_kg_ha": [
+        943.9276625859461,
+        1299.9231803740563
+      ],
+      "mineral_n_kg_ha": [
+        4.553937410552795,
+        24.42600902378669
+      ],
+      "residue_c_kg_ha": [
+        15.473374179815954,
+        27.182021088677153
+      ],
+      "residue_n_kg_ha": [
+        0.5981429869130082,
+        1.1784215179529944
+      ],
+      "snow_mm": 0.0,
+      "surface_residue_c_kg_ha": 78.80209663379961,
+      "surface_residue_n_kg_ha": 3.50509640583718,
+      "temperature_C": [
+        26.0,
+        26.0
+      ],
+      "water_mm": [
+        88.95276802818397,
+        211.98044580552045
+      ]
+    },
+    "active_crop_at_end": null,
+    "crop_survival_status": "harvested_or_terminated",
+    "terminal_events": [
+      {
+        "crop_id": "corn",
+        "date": "2020-06-23",
+        "reason": "thermal_maturity"
+      }
+    ],
+    "conservation": {
+      "carbon": -7.275957614183426e-12,
+      "nitrogen": 5.400124791776761e-13,
+      "water": 3.183231456205249e-12
+    }
+  },
+  "finance": {
+    "status": "financial_data_unavailable",
+    "missing": [
+      "price/cost/product conversion/market and sale-plan inputs"
+    ],
+    "currency": null,
+    "revenue": null,
+    "operating_cost": null,
+    "full_economic_cost": null,
+    "net_return": null,
+    "net_cash_flow": null,
+    "detail": null
+  },
+  "ecosystem": null,
+  "timeseries_url": "/api/v1/simulations/e8a8ffeed46f4e37866a5c4778a24426/timeseries",
+  "artifacts": {
+    "research_archive": "/api/v1/simulations/e8a8ffeed46f4e37866a5c4778a24426/artifacts"
+  },
+  "numerical_sha256": "d60aba936578c1952ac5d4708067e4c2def418446a256d997668d2b6536da5ab",
+  "independent_accuracy": null,
+  "farmer_recommendation": null
+}

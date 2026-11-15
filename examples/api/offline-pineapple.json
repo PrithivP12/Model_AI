@@ -1,0 +1,17 @@
+{
+  "farm": {
+    "location": {
+      "latitude": 40.0,
+      "longitude": -88.0,
+      "country": "US",
+      "state": "IL"
+    },
+    "area": 1.0,
+    "area_unit": "ha"
+  },
+  "scenario_id": "offline_pineapple",
+  "reference_scenario_id": "controlled_pineapple_v1",
+  "adopt_reference_assumptions": true,
+  "allow_experimental_profiles": true,
+  "mode": "standard"
+}

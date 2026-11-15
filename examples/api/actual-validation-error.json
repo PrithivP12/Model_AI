@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "field": "farm.location",
+      "code": "missing",
+      "message": "Field required"
+    },
+    {
+      "field": "farm.area",
+      "code": "greater_than",
+      "message": "Input should be greater than 0"
+    }
+  ]
+}

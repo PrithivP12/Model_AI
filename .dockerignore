@@ -1,0 +1,10 @@
+*
+!Dockerfile
+!pyproject.toml
+!requirements-release.lock
+!agrosim
+!agrosim/**
+!fieldshift
+!fieldshift/**
+**/__pycache__
+**/*.pyc

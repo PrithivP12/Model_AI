@@ -1,0 +1,21 @@
+{
+  "farm": {
+    "location": {
+      "latitude": 40.0,
+      "longitude": -88.0,
+      "country": "US",
+      "state": "IL"
+    },
+    "area": 1.0,
+    "area_unit": "ha"
+  },
+  "scenario_id": "offline_corn",
+  "reference_scenario_id": "controlled_corn_v1",
+  "adopt_reference_assumptions": true,
+  "allow_experimental_profiles": false,
+  "mode": "experimental_living",
+  "living": {
+    "fixture_id": "hypothetical_functional_network_v1",
+    "assumptions": "hypothetical_assumptions_adopted"
+  }
+}
