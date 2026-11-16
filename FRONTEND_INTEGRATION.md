@@ -1,4 +1,12 @@
-# Frontend developer handoff
+# Application integration
+
+**Default: [direct integration](DIRECT_INTEGRATION.md).** Run the Python SDK
+or Node one-shot worker inside your own backend. No AgroSim URL, separate
+AgroSim server, owner credentials or process on the owner's Mac is needed.
+`npm run example` now runs the direct Node example; it needs an installed
+Python environment, not a running API.
+
+## Optional separately hosted HTTP integration
 
 Clone `https://github.com/PrithivP12/Model_AI.git` or use the reviewed handoff directory. Use README's installation and
 startup commands. Backend and frontend are separate processes; no changes in
@@ -69,7 +77,7 @@ try {
 ```
 
 For the executable Node example: `cd handoff && npm ci && npm run build && npm
-run example`. `AGROSIM_URL` optionally changes the URL. The script actually
+run example:http`. `AGROSIM_URL` optionally changes the URL. The script actually
 lists crops, requests requirements, validates, submits, polls and retrieves.
 Do not reuse one idempotency key for different inputs; the server returns 409.
 

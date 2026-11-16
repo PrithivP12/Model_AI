@@ -4,36 +4,47 @@ A versioned Python/HTTP backend for explicit crop–soil, rotation, experimental
 
 **Functional execution is not independent field accuracy.** The rotation model has failed important simple-baseline comparisons. New crop physiology and living-population assumptions are largely experimental. No optimal-rotation, guaranteed-profit or farmer-ready accuracy claim is made.
 
-## Quick start
+## Quick start — no model URL or separate server
 
-Use CPython 3.14 (tested 3.14.7), or another supported Python >=3.11 after your own numerical checks. Clone `https://github.com/PrithivP12/Model_AI.git`, enter the repository directory, then run:
+Your collaborator can run this package on their own computer or application
+backend. Nothing needs to run on the owner's Mac. No AgroSim URL, API token,
+`.env`, NASA credentials or research download is needed for the controlled example.
 
 ```sh
+git clone https://github.com/PrithivP12/Model_AI.git
+cd Model_AI
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-release.lock
 .venv/bin/python -m pip install --no-deps .
-cp .env.example .env
-set -a
-. ./.env
-set +a
+.venv/bin/python -m agrosim.direct simulate --input examples/api/offline-corn.json
+```
+
+Read [DIRECT_INTEGRATION.md](DIRECT_INTEGRATION.md) for direct Python calls,
+server-side Node integration, comparisons and optional local artifact output.
+The calculation runs in the caller's process or a one-shot worker. It uses the
+same actual simulation and financial code as the HTTP service. Real field
+scenarios still need defensible environmental and management inputs; the
+controlled example explicitly adopts hypothetical assumptions.
+
+For Node, after the install above:
+
+```sh
+AGROSIM_PYTHON="$PWD/.venv/bin/python" node handoff/example-direct.mjs
+```
+
+## Optional HTTP service
+
+Use this only if your application chooses a separately hosted API. The direct
+integration above requires no service or URL.
+
+```sh
 .venv/bin/python -m agrosim.api --host 127.0.0.1 --port 8000
 ```
 
-The `.env` file is loaded by the shell commands above; the server does not secretly read environment files. Keep one API process per job directory. The new API runs independently of any frontend. The older research/demo server is preserved but is not the V1 handoff entry point.
-
-API: `http://127.0.0.1:8000/api/v1`. Interactive documentation: `http://127.0.0.1:8000/docs`. OpenAPI: `/openapi.json`. No live API key or research archive is needed for the controlled offline example.
-
-```sh
-curl http://127.0.0.1:8000/api/v1/crops
-curl -X POST http://127.0.0.1:8000/api/v1/simulations \
-  -H 'Content-Type: application/json' --data-binary @examples/api/offline-corn.json
-```
-
-The submission returns HTTP 202 and a durable run ID. Poll `/api/v1/simulations/{run_id}`; retrieve `/results` only after `completed`. The offline example adopts explicitly hypothetical soil, weather and management. It does not infer local field conditions from its coordinates.
-
-```sh
-.venv/bin/python scripts/release_smoke.py --output smoke-result.json
-```
+API: `http://127.0.0.1:8000/api/v1`; interactive docs: `/docs`.
+The HTTP integration and operational settings are documented in
+[FRONTEND_INTEGRATION.md](FRONTEND_INTEGRATION.md). A URL here refers to your own
+hosted backend, never a required service on the owner's computer.
 
 ## Architecture and handoff
 
@@ -49,7 +60,7 @@ Read [FRONTEND_INTEGRATION.md](FRONTEND_INTEGRATION.md), [API_REFERENCE.md](API_
 
 ```sh
 .venv/bin/python -m pip install pytest
-.venv/bin/python -m pytest tests/test_api_release.py -q
+.venv/bin/python -m pytest tests/test_direct.py tests/test_api_release.py -q
 ```
 
 The original development workspace additionally supports `pytest tests -q`, legacy `unittest discover`, `verify-platform` and `verify-crop-physiology`. Those scientific reproduction suites require the locally preserved research archives described in the data manifest; they are not hidden runtime dependencies of the offline API example.

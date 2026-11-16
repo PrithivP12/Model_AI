@@ -8,7 +8,7 @@ from pathlib import Path
 import argparse,hashlib,json,re,shutil,subprocess
 
 ROOT=Path(__file__).resolve().parents[1]
-DOCS=['LICENSE','THIRD_PARTY_NOTICES.md','PUBLICATION_STATUS.md','README.md','FRONTEND_INTEGRATION.md','API_REFERENCE.md','CONFIGURATION.md','DATA_MANIFEST.md',
+DOCS=['DIRECT_INTEGRATION.md','DIRECT_INTEGRATION_TESTS.md','LICENSE','THIRD_PARTY_NOTICES.md','PUBLICATION_STATUS.md','README.md','FRONTEND_INTEGRATION.md','API_REFERENCE.md','CONFIGURATION.md','DATA_MANIFEST.md',
       'GIT_PUBLICATION_CHECKLIST.md','LICENSE_STATUS.md','KNOWN_LIMITATIONS.md','AGROSIM_V1_RELEASE_READINESS.md',
       'FINAL20_PHYSIOLOGY.md','PLATFORM_VERIFICATION.md','FINANCE.md','pyproject.toml','requirements-release.lock',
       '.env.example','.gitignore','.dockerignore','Dockerfile','compose.yaml']
@@ -41,7 +41,7 @@ def build(output):
         paths.append(p)
     for folder in ['handoff','examples/api']:
         paths.extend(p for p in sorted((ROOT/folder).rglob('*'))if p.is_file()and 'node_modules'not in p.parts and 'dist'not in p.parts)
-    for name in ['test_api_release.py']:
+    for name in ['test_api_release.py','test_direct.py']:
         paths.append(ROOT/'tests'/name)
     for name in ['build_release_handoff.py','release_smoke.py']:
         paths.append(ROOT/'scripts'/name)
